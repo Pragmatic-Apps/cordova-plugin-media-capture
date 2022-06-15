@@ -92,6 +92,7 @@
     }
 
     NSNumber* duration = [options objectForKey:@"duration"];
+    NSNumber* quality = [options objectForKey:@"quality"];
     // the default value of duration is 0 so use nil (no duration) if default value
     if (duration) {
         duration = [duration doubleValue] == 0 ? nil : duration;
@@ -269,6 +270,18 @@
             // pickerController.videoQuality = UIImagePickerControllerQualityTypeHigh;
             // pickerController.cameraDevice = UIImagePickerControllerCameraDeviceRear;
             // pickerController.cameraFlashMode = UIImagePickerControllerCameraFlashModeAuto;
+            switch ((int) (quality ? [quality doubleValue] * 10 : -1)) {
+                            case 0:
+                                pickerController.videoQuality = UIImagePickerControllerQualityTypeLow;
+                                break;
+                            case 5:
+                            default:
+                                pickerController.videoQuality = UIImagePickerControllerQualityTypeMedium;
+                                break;
+                            case 10:
+                                pickerController.videoQuality = UIImagePickerControllerQualityTypeHigh;
+                                break;
+                        }
         }
         // CDVImagePicker specific property
         pickerController.callbackId = callbackId;
