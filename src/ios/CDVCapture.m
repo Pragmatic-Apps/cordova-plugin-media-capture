@@ -224,6 +224,7 @@
     // taking more than one video (limit) is only supported if provide own controls via cameraOverlayView property
     NSNumber* duration = [options objectForKey:@"duration"];
     NSString* mediaType = nil;
+    NSNumber* quality = [options objectForKey:@"quality"];
 
     if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
         // there is a camera, it is available, make sure it can do movies
@@ -269,6 +270,18 @@
             // pickerController.videoQuality = UIImagePickerControllerQualityTypeHigh;
             // pickerController.cameraDevice = UIImagePickerControllerCameraDeviceRear;
             // pickerController.cameraFlashMode = UIImagePickerControllerCameraFlashModeAuto;
+            switch ((int) (quality ? [quality doubleValue] * 10 : -1)) {
+                            case 0:
+                                pickerController.videoQuality = UIImagePickerControllerQualityTypeLow;
+                                break;
+                            case 5:
+                            default:
+                                pickerController.videoQuality = UIImagePickerControllerQualityTypeMedium;
+                                break;
+                            case 10:
+                                pickerController.videoQuality = UIImagePickerControllerQualityTypeHigh;
+                                break;
+                        }
         }
         // CDVImagePicker specific property
         pickerController.callbackId = callbackId;
