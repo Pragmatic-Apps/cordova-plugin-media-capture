@@ -92,7 +92,6 @@
     }
 
     NSNumber* duration = [options objectForKey:@"duration"];
-    NSNumber* quality = [options objectForKey:@"quality"];
     // the default value of duration is 0 so use nil (no duration) if default value
     if (duration) {
         duration = [duration doubleValue] == 0 ? nil : duration;
@@ -224,6 +223,7 @@
     // options could contain limit, duration and mode
     // taking more than one video (limit) is only supported if provide own controls via cameraOverlayView property
     NSNumber* duration = [options objectForKey:@"duration"];
+    NSNumber* quality = [options objectForKey:@"quality"];
     NSString* mediaType = nil;
 
     if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
